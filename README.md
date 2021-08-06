@@ -1,74 +1,95 @@
-## Fave Technical Assignment
+## Build and Run App
 
-### Introduction
-This assignment helps us better understand your ability to solve problems and fulfil task requirements with technical solutions. We would like to get an impression of how you write code in the real world. We will be evaluating your communication skills, development capabilities, and your interpretation of what good, clean, production-ready code should look like.
+The applicaton was created using create-react-app , below given the details of this project.
 
-### Scenario
-Cinema operators such as Cathay are one of the most popular merchants we have in Fave. We want to build an app to help our users discover movies easily.
+## Prerequisite
 
-### Requirements
-Create a standalone movie app / mobile web(responsive UI) with the following screens:
+- Make sure you have installed nodejs.
+- Make sure you have installed yarn package manager
 
-### **Home screen with list of available movies**
+## Dependencies Installation
 
-- Ordered by release date (default), alphabetical, rating - can use dropdown 
-- Pull to refresh
-- Load when scrolled to bottom
-- Each movie to include:
-  - Poster/Backdrop image
-  - Title
-  - Popularity
-    
-### **Detail screen**
-Movie details should have the following:
-- Synopsis
-- Genres
-- Language
-- Duration
-- Book the movie (simulate opening of this [link](https://www.cathaycineplexes.com.sg/) in a web view)
+- Please git clone the repo: [Git Hub Repo](https://github.com/soum21/ebworx_assesment.git)
+- Next run command `yarn install` in the root directory
 
-### **Frontend Design**
-It is up to you to design the UI. Simple is good.
+## Running the application
 
-### **Backend**
-Use the API from [TMDb](https://developers.themoviedb.org/3/getting-started/introduction) as your data source.
+1. To run the application in development mode please run the command `yarn start` on the root directory.
 
-You can use our API Key: `328c283cd27bd1877d9080ccb1604c91`
-  
-**Sample requests:**
+2. To build for production run the command `yarn build`
 
-Listing
+# Getting Started
 
-```
-http://api.themoviedb.org/3/discover/movie?api_key=328c283cd27bd1877d9080ccb1604c91&primary_release_date.lte=2016-12-31&sort_by=release_date.desc&page=1
+Our application starts at `App.js` file.
+
+# Global Context
+
+Our app wrapped with a global context which contains global states and Global reducer . Which makes these global states accessable in our project tree. Also we can dispatch action on these states from anywhere in the application.
+
+```javascript
+<AppContext>{...elements}</AppContext>
 ```
 
-Detail
+# Router
 
+For our project we have used Reach Router for routing.
+Also we have used webpack magic comments for our dynamic imports of app modules.
+
+### Steps
+
+1.  We create a function for dynamic import. And we send it to our custom Route creator component.
+
+```javascript
+<RouterCreator dynamicModuleResolve={dynamicModuleResolver} path={'/:module/*'} />
 ```
-http://api.themoviedb.org/3/movie/328111?api_key=328c283cd27bd1877d9080ccb1604c91
+
+2.  We wrap our lazy route inside `<Router >` tag of reach router.
+3.  We load the bundle containing our Component. Here the module param is provided by reach router. This will return a promise.
+
+```javascript
+dynamicModuleResolver(module || '');
 ```
 
-### Technical requirements:
+4.  Then React.lazy is resolving them as react component.
 
-| iOS | Android | Hybrid / Mobile Web |
-| ----------- | ----------- | ----------- |
-| Minimum Swift 4.0 | Kotlin or Java | React based framework (reactjs, create-react-app, nextjs, etc.) |
-| Usage of RxSwift + MVVM | RxJava or RxKotlin or Coroutine | CSS or SASS or styled-component |
-| Dependency Injection | MVVM or VIPER | Use context API & hooks |
-| | Dependency Injection - Dagger or Koin or Hilt | Use correct routes, param & URL |
-| | Data Binding | |
+```javascript
+React.lazy(() => component);
+```
 
-We expect unit tests for the main functionalities only.
-You can use third party libraries.
+5.  And finally we return the component under React.Suspense with a fallback Component.
 
-### Code Repo
-Please use this repo for your commits.
+6.  Our routes are basically our folder name under module folder.
 
-## Evaluation Criteria
-- Clean, readable, maintainable, and performant code
-- Clear documentation that describe your assumptions and design considerations, you can use the wiki in this repo.
-- Unit Tests will be evaluated
+For More Information about React Lazy: [Code_Spliting_React](https://reactjs.org/docs/code-splitting.html)
 
-That’s the end of the assignment, we hope you have fun!
-looking forward to your submission.
+# Services
+
+- Our http service is written in a class call `apiService.js`.
+- Our ApiService class returns a promise which resolve successCase and reject errorCase.
+- we have functions for our Api urls
+- we have exported them from `services/index.js`
+
+# Components
+
+- Our Project contains resusable components
+
+# Modules
+
+- Application modules are listed inside module folder
+
+# Reducer
+
+- We use `useReducer()` hook for ease of use.
+- Our states are differentiated in different files.
+
+# Assests
+
+- All Static assests and list inside the assets folder. And exported from index file
+
+# Theme
+
+- We set up our custom styling theme for different components.
+
+# Styling
+
+- The project uses css in js that is offered by material-ui React.

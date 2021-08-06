@@ -23,7 +23,7 @@ export default class ApiService {
             reject(error);
           }
         })
-        .catch((error) => {
+        .catch((err) => {
           let error = {
             msg: "NetworkError when attempting to fetch resource.",
             status: 404,
